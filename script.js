@@ -17,7 +17,7 @@ const drawCard = (image) => `<div class="col mb-4">
                                       type="button"
                                       class="btn btn-sm btn-outline-secondary"
                                     >
-                                      View
+                                      Learn More
                                     </button>
                                     <a/>
                                     <button

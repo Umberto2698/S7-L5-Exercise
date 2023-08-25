@@ -32,9 +32,10 @@ window.addEventListener("DOMContentLoaded", (event) => {
             <p class="card-text">
               ${productObj.description}
             </p>
-            <p class="card-text">${productObj.brand}</p>
-            <p class="card-text">${productObj.price}$</p>
-            <p class="card-text"><small class="text-body-secondary">${productObj._id}</small></p>
+            <p class="card-text">Brand: ${productObj.brand}</p>
+            <p class="card-text">Price: ${productObj.price}$</p>
+            <p class="card-text"><small class="text-body-secondary">Product ID: ${productObj._id}</small></p>
+            <p class="card-text"><small class="text-body-secondary">User ID: ${productObj.userId}</small></p>
             <div class="d-flex justify-content-between">
               <a href="./index.html"><button type="button" class="btn btn-sm btn-outline-primary">Go back</button></a>
               <button type="button" class="btn btn-sm btn-outline-success">Buy</button>
