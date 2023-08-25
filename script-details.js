@@ -6,7 +6,9 @@ const URL = "https://striveschool-api.herokuapp.com/api/product/" + productId;
 
 const section = document.getElementsByTagName("section")[0];
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", (event) => {
+  console.log("ciao");
+  event.preventDefault();
   fetch(URL, {
     headers: {
       Authorization: auth,
