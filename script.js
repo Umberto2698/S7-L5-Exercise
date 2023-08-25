@@ -51,27 +51,43 @@ const auth =
   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU4NTZlY2MwMzRmZjAwMTQwM2Y0ZTgiLCJpYXQiOjE2OTI5NDgyMDQsImV4cCI6MTY5NDE1NzgwNH0.rbfPITP6-Szkp6rMe_E-UzPJHRC545XCznuOexMpSiw";
 const URL = "https://striveschool-api.herokuapp.com/api/product/";
 
-let loadImages = async () => {
-  try {
-    const spinner = document.getElementById("spinner");
-    spinner.classList.remove("d-none");
-    const resp = await fetch(URL, {
-      method: "GET",
-      headers: {
-        Authorization: auth,
-      },
-    });
-    const body = await resp.json();
-    const grid = document.getElementById("myGrid");
+const loadImages = () => {
+  const spinner = document.getElementById("spinner");
+  spinner.classList.remove("d-none");
 
-    grid.innerHTML = "";
-    body.forEach((photo) => {
-      grid.innerHTML += drawCard(photo);
+  fetch(URL, {
+    method: "GET",
+    headers: {
+      Authorization: auth,
+    },
+  })
+    .then((resp) => {
+      if (!resp.ok) {
+        if (resp.status === 401) {
+          throw new Error("Non sei autorizzato");
+        }
+        throw new Error("Generic error from fetch");
+      }
+      return resp.json();
+    })
+    .then((products) => {
+      const grid = document.getElementById("myGrid");
+      grid.innerHTML = "";
+      products.forEach((product) => {
+        grid.innerHTML += drawCard(product);
+      });
+      spinner.classList.add("d-none");
+    })
+    .catch((err) => {
+      console.log(err);
+      const body = document.body;
+      body.innerHTML = `<div class="container">
+          <div class="d-flex justify-content-center">
+          </div>
+          <h1> ${err.message}</h1>
+      </div>
+      `;
     });
-    spinner.classList.add("d-none");
-  } catch (err) {
-    console.log(err);
-  }
 };
 
 window.addEventListener("DOMContentLoaded", loadImages());
