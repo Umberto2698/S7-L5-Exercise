@@ -53,6 +53,8 @@ const URL = "https://striveschool-api.herokuapp.com/api/product/";
 
 let loadImages = async () => {
   try {
+    const spinner = document.getElementById("spinner");
+    spinner.classList.remove("d-none");
     const resp = await fetch(URL, {
       method: "GET",
       headers: {
@@ -66,6 +68,7 @@ let loadImages = async () => {
     body.forEach((photo) => {
       grid.innerHTML += drawCard(photo);
     });
+    spinner.classList.add("d-none");
   } catch (err) {
     console.log(err);
   }
