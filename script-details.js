@@ -7,8 +7,9 @@ const URL = "https://striveschool-api.herokuapp.com/api/product/" + productId;
 const section = document.getElementsByTagName("section")[0];
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  console.log("ciao");
   event.preventDefault();
+  const spinner = document.getElementById("spinner");
+  spinner.classList.remove("d-none");
   fetch(URL, {
     headers: {
       Authorization: auth,
@@ -18,6 +19,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
       return resp.json();
     })
     .then((productObj) => {
+      spinner.classList.add("d-none");
       section.innerHTML = `<div class="card mb-3" style="max-width: 740px">
       <div class="row g-0">
         <div class="col-md-4">

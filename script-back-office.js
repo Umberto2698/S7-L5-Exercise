@@ -40,6 +40,9 @@ const modalLogicDelete = (event, product) => {
   modal.querySelector("h1").innerText = `${product.name}`;
   modal.querySelector(".modal-body").innerText = `Are you sure you want to delete this product?`;
   modal.querySelectorAll("button")[1].innerText = "Yes";
+  modal.querySelectorAll("button")[1].classList.remove("btn-success");
+  modal.querySelectorAll("button")[1].classList.remove("btn-primary");
+  modal.querySelectorAll("button")[1].classList.add("btn-danger");
   modal.querySelectorAll("button")[1].onclick = deleteProduct;
   modal.querySelectorAll("button")[2].innerText = "No";
 };
@@ -55,6 +58,9 @@ const modalLogicModify = (event, product) => {
   modal.querySelector("h1").innerText = `${product.name}`;
   modal.querySelector(".modal-body").innerText = `Are you sure you want to keep this changes?`;
   modal.querySelectorAll("button")[1].innerText = "Yes";
+  modal.querySelectorAll("button")[1].classList.remove("btn-danger");
+  modal.querySelectorAll("button")[1].classList.remove("btn-primary");
+  modal.querySelectorAll("button")[1].classList.add("btn-success");
   modal.querySelectorAll("button")[1].onclick = sendProduct;
   modal.querySelectorAll("button")[2].innerText = "No";
 };
@@ -70,6 +76,9 @@ const modalLogicReset = (event) => {
   modal.querySelector("h1").innerText = "Reset form";
   modal.querySelector(".modal-body").innerText = `Are you sure you want to delete all input fields?`;
   modal.querySelectorAll("button")[1].innerText = "Yes";
+  modal.querySelectorAll("button")[1].classList.remove("btn-danger");
+  modal.querySelectorAll("button")[1].classList.remove("btn-success");
+  modal.querySelectorAll("button")[1].classList.add("btn-primary");
   modal.querySelectorAll("button")[1].onclick = resetForm;
   modal.querySelectorAll("button")[2].innerText = "No";
 };
