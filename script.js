@@ -63,10 +63,7 @@ const loadImages = () => {
   })
     .then((resp) => {
       if (!resp.ok) {
-        if (resp.status === 401) {
-          throw new Error("Non sei autorizzato");
-        }
-        throw new Error("Generic error from fetch");
+        throw new Error(`Error ${resp.status}: ${resp.statusText}.`);
       }
       return resp.json();
     })
@@ -79,12 +76,11 @@ const loadImages = () => {
       spinner.classList.add("d-none");
     })
     .catch((err) => {
-      console.log(err);
       const body = document.body;
       body.innerHTML = `<div class="container">
-          <div class="d-flex justify-content-center">
-          </div>
-          <h1> ${err.message}</h1>
+          <div>
+          <h1 class="text-center" style="margin-top: 45vh"> ${err.message}</h1>
+      </div>
       </div>
       `;
     });

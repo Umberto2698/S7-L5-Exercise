@@ -21,11 +21,21 @@ const deleteProduct = () => {
       Authorization: auth,
     },
   })
-    .then(() => {
-      resetForm();
+    .then((resp) => {
+      if (!resp.ok) {
+        throw new Error(`Error ${resp.status}: ${resp.statusText}.`);
+      } else {
+        resetForm();
+      }
     })
     .catch((err) => {
-      console.log(err);
+      const body = document.body;
+      body.innerHTML = `<div class="container">
+          <div>
+          <h1 class="text-center" style="margin-top: 45vh"> ${err.message}</h1>
+      </div>
+      </div>
+      `;
     });
 };
 
@@ -97,6 +107,9 @@ if (productId) {
     },
   })
     .then((resp) => {
+      if (!resp.ok) {
+        throw new Error(`Error ${resp.status}: ${resp.statusText}.`);
+      }
       return resp.json();
     })
     .then((productObj) => {
@@ -114,7 +127,13 @@ if (productId) {
       });
     })
     .catch((err) => {
-      console.log(err);
+      const body = document.body;
+      body.innerHTML = `<div class="container">
+          <div>
+          <h1 class="text-center" style="margin-top: 45vh"> ${err.message}</h1>
+      </div>
+      </div>
+      `;
     });
 }
 
@@ -134,8 +153,7 @@ const sendProduct = async (event) => {
       method: productId ? "PUT" : "POST",
       body: JSON.stringify(newProduct),
       headers: {
-        Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU4NTZlY2MwMzRmZjAwMTQwM2Y0ZTgiLCJpYXQiOjE2OTI5NDgyMDQsImV4cCI6MTY5NDE1NzgwNH0.rbfPITP6-Szkp6rMe_E-UzPJHRC545XCznuOexMpSiw",
+        Authorization: auth,
         "Content-type": "application/json",
       },
     });
@@ -144,8 +162,16 @@ const sendProduct = async (event) => {
         resetForm();
       }
       const newProductObj = await resp.json();
+    } else {
+      throw new Error(`Error ${resp.status}: ${resp.statusText}.`);
     }
   } catch (err) {
-    console.log(err);
+    const body = document.body;
+    body.innerHTML = `<div class="container">
+        <div>
+        <h1 class="text-center" style="margin-top: 45vh"> ${err.message}</h1>
+    </div>
+    </div>
+    `;
   }
 };

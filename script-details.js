@@ -16,6 +16,9 @@ window.addEventListener("DOMContentLoaded", (event) => {
     },
   })
     .then((resp) => {
+      if (!resp.ok) {
+        throw new Error(`Error ${resp.status}: ${resp.statusText}.`);
+      }
       return resp.json();
     })
     .then((productObj) => {
@@ -48,6 +51,12 @@ window.addEventListener("DOMContentLoaded", (event) => {
     </div>`;
     })
     .catch((err) => {
-      console.log(err);
+      const body = document.body;
+      body.innerHTML = `<div class="container">
+          <div>
+          <h1 class="text-center" style="margin-top: 45vh"> ${err.message}</h1>
+      </div>
+      </div>
+      `;
     });
 });
